@@ -5,6 +5,7 @@ import java.util.List;
 import mx.ftc.com.biblio.bo.exception.BOException;
 import mx.ftc.com.biblio.model.Autor;
 import mx.ftc.com.biblio.model.Libro;
+import mx.ftc.com.biblio.model.LibroAutor;
 
 public interface BOLibro {
 	
@@ -17,5 +18,5 @@ public interface BOLibro {
 	List<Libro> buscar(Autor autor) throws BOException;
 	Libro encontrarPorISBN(String isbn) throws BOException;
 	List<Libro> listar() throws BOException;
-	
+	LibroAutor asociarAutores(Libro libro, Autor...autores) throws BOException;
 }

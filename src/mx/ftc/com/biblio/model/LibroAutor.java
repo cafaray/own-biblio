@@ -11,7 +11,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="libro_autor")
-@NamedQuery(name="LibroAutor.findAll", query="SELECT l FROM LibroAutor l")
+@NamedQueries({
+	@NamedQuery(name="LibroAutor.findAll", query="SELECT l FROM LibroAutor l"),
+	@NamedQuery(name="LibroAutor.findByAutor", query = "SELECT l FROM LibroAutor l WHERE l.autor.identificador = :identificadorAutor"),
+	@NamedQuery(name="LibroAutor.findByLibro", query = "SELECT l FROM LibroAutor l WHERE l.libro.identificador  = :identificadorLibro"),
+})
 public class LibroAutor implements Serializable {
 	private static final long serialVersionUID = 1L;
 

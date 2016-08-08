@@ -7,9 +7,11 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import mx.ftc.com.biblio.dao.DAOLibro;
+import mx.ftc.com.biblio.dao.DAOLibroAutor;
 import mx.ftc.com.biblio.dao.exception.BiblioException;
 import mx.ftc.com.biblio.model.Autor;
 import mx.ftc.com.biblio.model.Libro;
+import mx.ftc.com.biblio.model.LibroAutor;
 
 public class DAOLibroImpl extends DAOGenericImpl<Libro, String> implements DAOLibro {
 
@@ -60,6 +62,23 @@ public class DAOLibroImpl extends DAOGenericImpl<Libro, String> implements DAOLi
 			return libros;
 		}catch(PersistenceException e) {
 			throw new BiblioException("Imposible establecer respuesta desde la unidad de persistencia.", e);
+		}
+	}
+
+	@Override
+	public LibroAutor setAutors(Libro libro, Autor... autores) throws BiblioException {
+		DAOLibroAutor dao = new DAOLibroAutorImpl();
+		try{
+			LibroAutor libroAutor = null;
+			for(Autor autor:autores){
+				libroAutor = new LibroAutor();
+				libroAutor.setLibro(libro);
+				libroAutor.setAutor(autor);
+				dao.save(libroAutor);
+			}			
+			return libroAutor;
+		}catch(BiblioException e){
+			throw new BiblioException(e);
 		}
 	}
 

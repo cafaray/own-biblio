@@ -13,7 +13,12 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Autor.findAll", query="SELECT a FROM Autor a")
+@NamedQueries({
+	@NamedQuery(name="Autor.findAll", query="SELECT a FROM Autor a"),
+	@NamedQuery(name="Autor.findByNombreApellidos", query="SELECT a FROM Autor a WHERE a.nombre = :nombre AND a.apellidos = :apellidos"),
+	@NamedQuery(name="Autor.findByNombreCompleto", query="SELECT a FROM Autor a WHERE CONCAT(a.nombre, ' ', a.apellidos) LIKE (:nombreCompleto)")
+})
+
 public class Autor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
